@@ -1,12 +1,22 @@
 import { styles } from '../styles';
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { useProductStore } from '../Store/product';
+import toast from 'react-hot-toast';
 
 const ProductCard = ({ product }) => {
   const formattedPrice = product.price 
     ? `$${parseFloat(product.price).toFixed(2)}`
     : '$0.00';
 
+  const {deleteProduct} = useProductStore();
+
+  const handleDeleteProduct = async (pid) => {
+    const {success, message} = await deleteProduct(pid);
+
+    if(!success) { toast.error(message)}
+    else { toast.success(message)}
+  }
   return (
     <div className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
       
@@ -53,7 +63,9 @@ const ProductCard = ({ product }) => {
             flex items-center space-x-1
             bg-red-600 hover:bg-red-700
             text-white
-          `}>
+          `}
+            onClick={() => handleDeleteProduct(product._id)}
+          >
             <MdDelete className={styles.iconSize} />
             <span className="text-sm font-medium">Delete</span>
           </button>
