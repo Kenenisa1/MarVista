@@ -1,180 +1,258 @@
+// HomePage.jsx
 import { useProductStore } from "../Store/product";
 import { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
+import SearchBar from '../components/SearchBar';
+import { FaFilter, FaSort } from "react-icons/fa";
 
 const HomePage = () => {
-  const { fetchProducts, products } = useProductStore();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { fetchProducts, products, filteredProducts } = useProductStore();
+  const [loading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState('newest');
+  const [showFilters, setShowFilters] = useState(false);
 
-  const loadProducts = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      await fetchProducts();
-    } catch (err) {
-      setError('Failed to load products. Please try again.');
-      console.error('Error loading products:', err);
-    } finally {
-      setIsLoading(false);
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        await fetchProducts();
+      } catch (error) {
+        console.error('Error loading products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, [fetchProducts]);
+
+  // Get products to display - use filteredProducts if search is active
+  const displayProducts = (filteredProducts && filteredProducts.length >= 0) 
+    ? filteredProducts 
+    : products;
+
+  // Sort products based on selected option
+  const getSortedProducts = () => {
+    const productsToSort = [...displayProducts];
+    
+    switch (sortBy) {
+      case 'price-low':
+        return productsToSort.sort((a, b) => a.price - b.price);
+      case 'price-high':
+        return productsToSort.sort((a, b) => b.price - a.price);
+      case 'name-asc':
+        return productsToSort.sort((a, b) => a.name.localeCompare(b.name));
+      case 'name-desc':
+        return productsToSort.sort((a, b) => b.name.localeCompare(a.name));
+      case 'newest':
+      default:
+        return productsToSort;
     }
   };
 
-  useEffect(() => {
-    loadProducts();
-  }, []);
+  const sortedProducts = getSortedProducts();
+  const productCount = sortedProducts.length;
 
   return (
-    <div className="min-h-screen The class `bg-gradient-to-b` can be written as `bg-linear-to-b` from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       
-      {/* Hero Section */}
+      {/* Hero Section with Search */}
       <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Welcome to <span className="text-yellow-300">Product Store</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Discover Amazing Products
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-indigo-100 max-w-3xl mx-auto">
-              Discover amazing products at unbeatable prices. Quality you can trust.
+            <p className="text-lg text-indigo-100 max-w-2xl mx-auto">
+              Find exactly what you're looking for in our curated collection
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={loadProducts}
-                className="px-8 py-3 bg-white text-indigo-600 font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Refresh Products
-              </button>
-              <button className="px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all duration-300">
-                View Categories
-              </button>
+          </div>
+          
+          {/* Main Search Bar */}
+          <div className="max-w-3xl mx-auto mb-6">
+            <SearchBar />
+          </div>
+          
+          {/* Search Stats */}
+          <div className="text-center">
+            <div className="inline-flex items-center space-x-6 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3">
+              <div className="text-center">
+                <div className="text-2xl font-bold">{productCount}</div>
+                <div className="text-sm text-indigo-100">Products</div>
+              </div>
+              <div className="h-8 w-px bg-indigo-300"></div>
+              <div className="text-center">
+                <div className="text-2xl font-bold">
+                  ${Math.min(...sortedProducts.map(p => p.price || 0)).toFixed(2) || '0.00'}
+                </div>
+                <div className="text-sm text-indigo-100">Lowest Price</div>
+              </div>
+              <div className="h-8 w-px bg-indigo-300"></div>
+              <div className="text-center">
+                <div className="text-2xl font-bold">
+                  ${Math.max(...sortedProducts.map(p => p.price || 0)).toFixed(2) || '0.00'}
+                </div>
+                <div className="text-sm text-indigo-100">Highest Price</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        {/* Loading State */}
-        {isLoading && (
-          <div className="flex flex-col items-center justify-center min-h-[400px] space-y-6">
+        {/* Filters and Sort Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Featured Products</h2>
+            <p className="text-gray-600">
+              Showing <span className="font-semibold text-indigo-600">{productCount}</span> amazing products
+            </p>
+          </div>
+          
+          {/* Sort and Filter Controls */}
+          <div className="flex items-center space-x-4">
+            {/* Mobile Filter Toggle */}
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="md:hidden flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+            >
+              <FaFilter className="w-4 h-4" />
+              <span>Filters</span>
+            </button>
+            
+            {/* Sort Dropdown */}
             <div className="relative">
-              <div className="animate-spin rounded-full h-20 w-20 border-4 border-indigo-200 border-t-indigo-600"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="h-10 w-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full animate-pulse"></div>
+              <div className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg bg-white">
+                <FaSort className="w-4 h-4 text-gray-500" />
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="bg-transparent outline-none cursor-pointer"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="name-asc">Name: A to Z</option>
+                  <option value="name-desc">Name: Z to A</option>
+                </select>
               </div>
             </div>
-            <div className="text-center space-y-2">
-              <h3 className="text-xl font-semibold text-gray-700">Loading Products</h3>
-              <p className="text-gray-500">Please wait while we fetch amazing products for you...</p>
-            </div>
           </div>
-        )}
+        </div>
 
-        {/* Error State */}
-        {error && !isLoading && (
-          <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-lg">
-              <div className="text-red-500 text-6xl mb-4">⚠️</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Oops! Something went wrong</h3>
-              <p className="text-gray-600 mb-6">{error}</p>
+        {/* Mobile Filters Panel */}
+        {showFilters && (
+          <div className="md:hidden bg-white border border-gray-200 rounded-lg p-4 mb-6 shadow-sm">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-semibold text-gray-900">Filters</h3>
               <button
-                onClick={loadProducts}
-                className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-md hover:shadow-lg"
+                onClick={() => setShowFilters(false)}
+                className="text-gray-500 hover:text-gray-700"
               >
-                Try Again
+                ✕
               </button>
             </div>
+            <div className="space-y-4">
+              {/* Add filter options here if needed */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Sort By
+                </label>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                </select>
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Products Grid */}
-        {!isLoading && !error && products.length > 0 && (
-          <>
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-10">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900">Featured Products</h2>
-                <p className="text-gray-600 mt-2">
-                  Showing <span className="font-semibold text-indigo-600">{products.length}</span> amazing products
-                </p>
-              </div>
-              
-              {/* Stats */}
-              <div className="flex items-center space-x-6 mt-4 md:mt-0">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">{products.length}</div>
-                  <div className="text-sm text-gray-500">Total Products</div>
-                </div>
-                <div className="h-8 w-px bg-gray-300"></div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">
-                    ${Math.min(...products.map(p => p.price)).toFixed(2)}
-                  </div>
-                  <div className="text-sm text-gray-500">Lowest Price</div>
-                </div>
+        {/* Loading State */}
+        {loading ? (
+          <div className="flex flex-col items-center justify-center min-h-[400px]">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-200 border-t-indigo-600"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="h-8 w-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full animate-pulse"></div>
               </div>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {products.map((product) => (
+            <p className="mt-4 text-gray-600 font-medium">Loading products...</p>
+          </div>
+        ) : productCount > 0 ? (
+          <>
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {sortedProducts.map((product) => (
                 <ProductCard 
                   key={product._id}
                   product={product}
                 />
               ))}
             </div>
-
-            {/* Load More Button (optional) */}
-            <div className="mt-12 text-center">
+            
+            {/* Load More Section (Optional) */}
+            {/* <div className="text-center mt-12">
               <button className="px-8 py-3 border-2 border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition-colors duration-300">
                 Load More Products
               </button>
-            </div>
+            </div> */}
           </>
-        )}
-
-        {/* Empty State */}
-        {!isLoading && !error && products.length === 0 && (
-          <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
-            <div className="mb-8">
-              <div className="text-8xl mb-6 opacity-20">🛍️</div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">No Products Found</h3>
-              <p className="text-gray-600 text-lg max-w-md mb-8">
-                It looks like our store is empty right now. Products will appear here once they're added.
+        ) : (
+          /* Empty/No Results State */
+          <div className="text-center py-16">
+            <div className="mb-6">
+              <div className="text-6xl mb-4 opacity-20">🔍</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">No products found</h3>
+              <p className="text-gray-600 max-w-md mx-auto mb-6">
+                {products.length === 0 
+                  ? "Our store is currently empty. Check back soon for amazing products!"
+                  : "We couldn't find any products matching your search. Try different keywords."
+                }
               </p>
             </div>
-            <div className="space-x-4">
-              <button
-                onClick={loadProducts}
-                className="px-8 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
-              >
-                Refresh Store
-              </button>
-              <button className="px-8 py-3 border-2 border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition-colors duration-300">
-                Add Product
-              </button>
+            <div className="space-y-3">
+              <p className="text-sm text-gray-500">Try searching for:</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {products.slice(0, 3).map(p => (
+                  <button
+                    key={p._id}
+                    onClick={() => useProductStore.getState().searchProducts(p.name.split(' ')[0])}
+                    className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors cursor-pointer text-sm"
+                  >
+                    {p.name.split(' ')[0]}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         )}
 
         {/* Bottom CTA */}
-        {!isLoading && products.length > 0 && (
+        {!loading && productCount > 0 && (
           <div className="mt-16 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Can't find what you're looking for?
-            </h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              We're constantly adding new products to our collection. Sign up to be notified when we add new items!
-            </p>
-            <div className="max-w-md mx-auto flex gap-4">
-              <input 
-                type="email" 
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              />
-              <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors duration-300">
-                Notify Me
-              </button>
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Can't find what you're looking for?
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Sign up to get notified when we add new products to our collection!
+              </p>
+              <div className="max-w-md mx-auto flex gap-3">
+                <input 
+                  type="email" 
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                />
+                <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors duration-300">
+                  Notify Me
+                </button>
+              </div>
             </div>
           </div>
         )}
