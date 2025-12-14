@@ -68,13 +68,13 @@ const CreatePage = () => {
                     
                     <div>
                         <label htmlFor="name" className={styles.inputLabel}>
-                            Book Title
+                            Product Name
                         </label>
                         <input
                             type="text"
                             id="name"
                             name="name" 
-                            placeholder="e.g., The MERN Stack Guide"
+                            placeholder="e.g., Earphone"
                             onChange={handleChange}
                             value={newProduct.name}
                             required
