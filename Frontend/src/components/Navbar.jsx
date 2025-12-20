@@ -23,7 +23,6 @@ const Navbar = () => {
   const { user, signout } = useUserStore();
   const profileRef = useRef(null);
 
-  // Close profile dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -35,161 +34,152 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleSignOut = () => {
+    signout();
+    setIsProfileOpen(false);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-black shadow-lg border-b border-gray-100">
-      <nav className={`${styles.container} ${styles.flexBetween}  py-4`}>
+    <header className="sticky top-0 z-50 bg-linear-to-r from-slate-900 via-gray-900 to-slate-900 shadow-2xl border-b border-slate-800">
+      <nav className={`${styles.container} ${styles.flexBetween} py-4`}>
         
         {/* Logo and Brand */}
-        <Link to="/" className={`${styles.flexStart} space-x-3 cursor-pointer ${styles.hoverScale}`}>
+        <Link 
+          to="/" 
+          className={`${styles.flexStart} space-x-3 cursor-pointer group`}
+        >
           <img 
             src={logo} 
             alt="Product Store" 
-            className="w-30 h-20 md:w-12 md:h-12 object-contain"
+            className="w-30 h-20 md:w-12 md:h-12 object-contain transition-transform duration-500 group-hover:rotate-6"
           />
-          <span className="hidden md:inline text-xl font-bold text-white">
+          <span className="hidden md:inline text-2xl font-bold bg-linear-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent tracking-wide">
             Product Store
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex  items-center justify-center space-x-3">
+        <div className="hidden md:flex items-center space-x-6">
           <Link 
             to="/Products" 
-            className={`${styles.navLink} items-center justify-center flex`}
+            className={`${styles.flexCenter} relative px-4 py-2 ${styles.transition} group`}
           >
-            <AiOutlineAppstoreAdd className={`text-white ${styles.iconMd}`} />
-            <span className="ml-2 text-white">Products</span>
+            <AiOutlineAppstoreAdd className="text-white text-xl mr-2 group-hover:scale-110 transition-transform" />
+            <span className="text-white font-medium">Products</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r from-indigo-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
           </Link>
 
           <Link 
             to="/CreatePage" 
-            className={`${styles.secondaryButton} ${styles.buttonPadding}`}
+            className={`${styles.flexCenter} px-5 py-2.5 ${styles.roundedLg} ${styles.transition} bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-indigo-500/25`}
           >
-            <FaPlus className={`${styles.iconSm} text-white`} />
-            <span className="ml-2 text-white">Add Product</span>
+            <FaPlus className="text-white mr-2" />
+            <span className="text-white font-semibold">Add Product</span>
           </Link>
 
-          {user ? 
-          (
+          {user ? (
             <div className="relative" ref={profileRef}>
-              {/* Profile Button */}
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className={`${styles.flexCenter} space-x-2 px-4 py-2 ${styles.roundedLg} hover:bg-gray-50 ${styles.transition} cursor-pointer border border-gray-200`}
+                className={`${styles.flexCenter} space-x-2 px-4 py-2.5 ${styles.roundedLg} ${styles.transition} border border-slate-700 hover:border-indigo-500 bg-slate-800/50 hover:bg-slate-800 backdrop-blur-sm`}
               >
-                <div className={`${styles.flexCenter} w-8 h-8 bg-linear-to-r from-indigo-500 to-purple-500 ${styles.roundedFull} text-white font-semibold`}>
+                <div className={`${styles.flexCenter} w-9 h-9 bg-linear-to-r from-indigo-500 to-purple-500 ${styles.roundedFull} text-white font-bold text-lg shadow-lg`}>
                   {user.username?.charAt(0).toUpperCase() || 'U'}
                 </div>
                 <div className="text-left">
-                  <p className="text-sm font-medium text-gray-900">{user.username}</p>
-                  <p className="text-xs text-gray-500">{user.email}</p>
+                  <p className="text-sm font-semibold text-white">{user.username}</p>
+                  <p className="text-xs text-slate-400 truncate max-w-[120px]">{user.email}</p>
                 </div>
-                <FaUserCircle className={styles.iconSm} />
+                <FaUserCircle className="text-slate-300 group-hover:text-indigo-400 transition-colors" />
               </button>
 
-              {/* Profile Dropdown */}
               {isProfileOpen && (
-                <div className={`absolute right-0 mt-2 w-64 bg-white ${styles.roundedXl} ${styles.shadowXl} border border-gray-200 py-2 z-50 animate-slideDown`}>
-                  {/* User Info */}
-                  <div className="px-4 py-3 border-b border-gray-100">
-                    <p className="text-sm font-medium text-gray-900">{user.username}</p>
-                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                <div className={`absolute right-0 mt-3 w-64 bg-slate-900/95 backdrop-blur-xl ${styles.roundedXl} ${styles.shadowXl} border border-slate-800 py-3 z-50 animate-fadeIn`}>
+                  <div className="px-4 py-3 border-b border-slate-800">
+                    <p className="text-white font-semibold">{user.username}</p>
+                    <p className="text-xs text-slate-400 truncate">{user.email}</p>
                   </div>
 
-                  {/* Menu Items */}
-                  <Link 
-                    to="/profile" 
-                    onClick={() => setIsProfileOpen(false)}
-                    className={`${styles.flexStart} px-4 py-3 text-gray-700 hover:bg-gray-50 ${styles.transition} cursor-pointer`}
-                  >
-                    <FaUserCircle className={`${styles.iconSm} mr-3 text-white`} />
-                    <span>My Profile</span>
-                  </Link>
+                  {['/profile', '/orders', '/settings'].map((path, index) => {
+                    const icons = [FaUserCircle, FaShoppingCart, FaCog];
+                    const labels = ['My Profile', 'My Orders', 'Settings'];
+                    const Icon = icons[index];
+                    
+                    return (
+                      <Link 
+                        key={path}
+                        to={path} 
+                        onClick={() => setIsProfileOpen(false)}
+                        className={`${styles.flexStart} px-4 py-3 text-slate-300 hover:text-indigo-400 hover:bg-slate-800/50 ${styles.transition} cursor-pointer group/item`}
+                      >
+                        <Icon className={`${styles.iconMd} mr-3 group-hover/item:scale-110 transition-transform`} />
+                        <span>{labels[index]}</span>
+                        <div className="ml-auto w-1 h-5 bg-indigo-500 scale-y-0 group-hover/item:scale-y-100 transition-transform"></div>
+                      </Link>
+                    );
+                  })}
 
-                  <Link 
-                    to="/orders" 
-                    onClick={() => setIsProfileOpen(false)}
-                    className={`${styles.flexStart} px-4 py-3 text-white hover:bg-gray-500 ${styles.transition} cursor-pointer`}
-                  >
-                    <FaShoppingCart className={`${styles.iconSm} mr-3 text-white`} />
-                    <span>My Orders</span>
-                  </Link>
+                  <div className="border-t border-slate-800 my-2"></div>
 
-                  <Link 
-                    to="/settings" 
-                    onClick={() => setIsProfileOpen(false)}
-                    className={`${styles.flexStart} px-4 py-3 text-white hover:bg-gray-500 ${styles.transition} cursor-pointer`}
-                  >
-                    <FaCog className={`${styles.iconSm} mr-3 text-white`} />
-                    <span>Settings</span>
-                  </Link>
-
-                  <div className="border-t border-gray-100 my-2"></div>
-
-                  {/* Sign Out */}
                   <button
-                    onClick={() => {
-                      signout();
-                      setIsProfileOpen(false);
-                    }}
-                    className={`${styles.flexStart} w-full px-4 py-3 text-red-600 hover:bg-red-50 ${styles.transition} cursor-pointer`}
+                    onClick={handleSignOut}
+                    className={`${styles.flexStart} w-full px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-900/20 ${styles.transition} cursor-pointer group/item`}
                   >
-                    <FaSignOutAlt className={`${styles.iconSm} mr-3`} />
+                    <FaSignOutAlt className={`${styles.iconMd} mr-3 group-hover/item:rotate-12 transition-transform`} />
                     <span>Sign Out</span>
                   </button>
                 </div>
               )}
             </div>
-          ) : 
-          (
-            <>
+          ) : (
+            <div className={`${styles.flexCenter} space-x-4`}>
               <Link 
                 to="/SignIn" 
-                className={styles.ghostButton}
+                className={`${styles.flexCenter} px-5 py-2.5 ${styles.roundedLg} ${styles.transition} border border-slate-700 text-white hover:border-indigo-500 hover:text-indigo-400`}
               >
-                <FaSignInAlt className={styles.iconSm} />
-                <span className="ml-2">Sign In</span>
+                <FaSignInAlt className="mr-2" />
+                <span>Sign In</span>
               </Link>
 
               <Link 
                 to="/SignUp" 
-                className={styles.primaryButton}
+                className={`${styles.flexCenter} px-5 py-2.5 ${styles.roundedLg} ${styles.transition} bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-indigo-500/25`}
               >
-                <FaUserPlus className={styles.iconSm} />
-                <span className="ml-2">Sign Up</span>
+                <FaUserPlus className="mr-2" />
+                <span>Sign Up</span>
               </Link>
-            </>
+            </div>
           )}
         </div>
 
         {/* Mobile Menu Toggle */}
         <button 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className={`md:hidden p-2 ${styles.roundedLg} hover:bg-gray-100 ${styles.transition} cursor-pointer`}
+          className={`md:hidden p-2.5 ${styles.roundedLg} hover:bg-slate-800 ${styles.transition} cursor-pointer border border-slate-800`}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMobileMenuOpen ? (
-            <FaTimes className={styles.iconLg} />
+            <FaTimes className="text-indigo-400 text-xl" />
           ) : (
-            <FaBars className={styles.iconLg} />
+            <FaBars className="text-white text-xl" />
           )}
         </button>
       </nav>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-xl animate-slideDown">
-          <div className="px-4 py-3 space-y-2">
-            {/* User Info in Mobile Menu */}
+        <div className="md:hidden bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 shadow-2xl animate-slideDown">
+          <div className="px-5 py-4 space-y-3">
             {user && (
-              <div className={`px-4 py-3 ${styles.bgGradientPrimary} ${styles.roundedLg} mb-2`}>
+              <div className={`px-4 py-3 bg-linear-to-r from-slate-800 to-slate-900 ${styles.roundedLg} mb-3 border border-slate-800`}>
                 <div className={`${styles.flexStart} space-x-3`}>
-                  <div className={`${styles.flexCenter} w-10 h-10 bg-linear-to-r from-indigo-500 to-purple-500 ${styles.roundedFull} text-white font-semibold text-lg`}>
+                  <div className={`${styles.flexCenter} w-12 h-12 bg-linear-to-r from-indigo-500 to-purple-500 ${styles.roundedFull} text-white font-bold text-xl shadow-lg`}>
                     {user.username?.charAt(0).toUpperCase() || 'U'}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{user.username}</p>
-                    <p className="text-sm text-gray-600">{user.email}</p>
+                    <p className="font-semibold text-white">{user.username}</p>
+                    <p className="text-sm text-slate-400">{user.email}</p>
                   </div>
                 </div>
               </div>
@@ -198,84 +188,68 @@ const Navbar = () => {
             <Link 
               to="/Products" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} hover:bg-gray-50 text-gray-700 ${styles.transition} cursor-pointer`}
+              className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} hover:bg-slate-800/50 text-white hover:text-indigo-400 ${styles.transition} cursor-pointer group`}
             >
-              <FaProductHunt className={`${styles.iconMd} mr-3`} />
+              <FaProductHunt className="text-xl mr-3 group-hover:rotate-12 transition-transform" />
               <span className="font-medium">Products</span>
+              <div className="ml-auto w-1 h-5 bg-indigo-500 scale-y-0 group-hover:scale-y-100 transition-transform"></div>
             </Link>
 
             <Link 
               to="/CreatePage" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className={`${styles.flexStart} px-4 py-3 border border-indigo-600 text-indigo-600 ${styles.roundedLg} hover:bg-indigo-50 ${styles.transition} cursor-pointer`}
+              className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white ${styles.transition} cursor-pointer`}
             >
-              <FaPlus className={`${styles.iconMd} mr-3`} />
-              <span className="font-medium">Add Product</span>
+              <FaPlus className="text-xl mr-3" />
+              <span className="font-semibold">Add Product</span>
             </Link>
-
-            {/* Cart in Mobile */}
 
             {user ? (
               <>
-                {/* Profile Links in Mobile */}
-                <div className="border-t border-gray-200 pt-2 mt-2">
-                  <Link 
-                    to="/profile" 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} hover:bg-gray-50 text-gray-700 ${styles.transition} cursor-pointer`}
-                  >
-                    <FaUserCircle className={`${styles.iconMd} mr-3`} />
-                    <span className="font-medium">My Profile</span>
-                  </Link>
+                {['/profile', '/orders', '/settings'].map((path, index) => {
+                  const icons = [FaUserCircle, FaShoppingCart, FaCog];
+                  const labels = ['My Profile', 'My Orders', 'Settings'];
+                  const Icon = icons[index];
+                  
+                  return (
+                    <Link 
+                      key={path}
+                      to={path} 
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} hover:bg-slate-800/50 text-slate-300 hover:text-indigo-400 ${styles.transition} cursor-pointer group`}
+                    >
+                      <Icon className="text-xl mr-3 group-hover:scale-110 transition-transform" />
+                      <span className="font-medium">{labels[index]}</span>
+                    </Link>
+                  );
+                })}
 
-                  <Link 
-                    to="/orders" 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} hover:bg-gray-50 text-gray-700 ${styles.transition} cursor-pointer`}
-                  >
-                    <FaShoppingCart className={`${styles.iconMd} mr-3`} />
-                    <span className="font-medium">My Orders</span>
-                  </Link>
-
-                  <Link 
-                    to="/settings" 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} hover:bg-gray-50 text-gray-700 ${styles.transition} cursor-pointer`}
-                  >
-                    <FaCog className={`${styles.iconMd} mr-3`} />
-                    <span className="font-medium">Settings</span>
-                  </Link>
-
-                  <button
-                    onClick={() => {
-                      signout();
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`${styles.flexStart} w-full px-4 py-3 text-red-600 hover:bg-red-50 ${styles.roundedLg} ${styles.transition} cursor-pointer`}
-                  >
-                    <FaSignOutAlt className={`${styles.iconMd} mr-3`} />
-                    <span className="font-medium">Sign Out</span>
-                  </button>
-                </div>
+                <button
+                  onClick={handleSignOut}
+                  className={`${styles.flexStart} w-full px-4 py-3 ${styles.roundedLg} text-red-400 hover:bg-red-900/20 hover:text-red-300 ${styles.transition} cursor-pointer`}
+                >
+                  <FaSignOutAlt className="text-xl mr-3" />
+                  <span className="font-medium">Sign Out</span>
+                </button>
               </>
             ) : (
               <>
                 <Link 
                   to="/SignIn" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} hover:bg-gray-50 text-gray-700 ${styles.transition} cursor-pointer`}
+                  className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} border border-slate-700 text-white hover:border-indigo-500 hover:text-indigo-400 ${styles.transition} cursor-pointer`}
                 >
-                  <FaSignInAlt className={`${styles.iconMd} mr-3`} />
+                  <FaSignInAlt className="text-xl mr-3" />
                   <span className="font-medium">Sign In</span>
                 </Link>
 
                 <Link 
                   to="/SignUp" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`${styles.flexStart} px-4 py-3 bg-indigo-600 text-white ${styles.roundedLg} hover:bg-indigo-700 ${styles.transition} cursor-pointer`}
+                  className={`${styles.flexStart} px-4 py-3 ${styles.roundedLg} bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white ${styles.transition} cursor-pointer`}
                 >
-                  <FaUserPlus className={`${styles.iconMd} mr-3`} />
-                  <span className="font-medium">Sign Up</span>
+                  <FaUserPlus className="text-xl mr-3" />
+                  <span className="font-semibold">Sign Up</span>
                 </Link>
               </>
             )}
