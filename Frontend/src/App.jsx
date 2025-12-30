@@ -1,32 +1,49 @@
-import Navbar from "./components/Navbar";
-import { Routes, Route} from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import CreatePage from './pages/CreatePage';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import {Toaster } from 'react-hot-toast';
-import Products from "./components/products";
-import Footer from "./components/Footer";
+import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { AdminRoute } from "./components/AdminRoute";
+import {HomePage, CreatePage, SignIn, SignUp, Footer,Navbar,Products, UpdateProductPage, ProtectedRoute } from "./sources";
 const App = () => {
-   return (
-     <div>
+  return (
+    <div>
+      <Toaster position="top-center" reverseOrder={false} />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage /> } />
+        <Route path="/home" element={<HomePage />} />
+        <Route
+          path="/create"
+          element={
+            <ProtectedRoute>
+              <AdminRoute>
+                <CreatePage />
+              </AdminRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/products/:id/edit"
+          element={
+            <ProtectedRoute>
+              <AdminRoute>
+                <UpdateProductPage />
+              </AdminRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <Products />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+      <Footer />
+    </div>
+  );
+};
 
-      <Toaster 
-          position="top-center"
-          reverseOrder={false} 
-      />
-        <Navbar />
-        <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/home" element={<HomePage/>} />
-            <Route path="/CreatePage" element = {<CreatePage/>} />
-            <Route path="/Signin" element={<SignIn/>} />
-            <Route path="/SignuP" element={<SignUp/>} />
-            <Route path="/Products" element={<Products/>} />
-        </Routes>
-        <Footer/>
-     </div>
-   )
-}
- 
- export default App
+export default App;
