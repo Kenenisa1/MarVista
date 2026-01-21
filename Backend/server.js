@@ -7,6 +7,7 @@ import path from 'path';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import morgan from 'morgan';
+import contactRoutes from './routes/contact.route.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,13 +41,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.get('/', (req, res) => {
   res.json({
     success: true,
-    message: 'Halal Smart Market API',
+    message: 'S.Market Preview API is running',
     version: '1.0.0',
     environment: process.env.NODE_ENV,
   });
 });
 
+// API Routes
 app.use('/api/products', productRoutes);
+app.use('/api/contact', contactRoutes);
 app.use('/api/users', userRoutes);
 
 app.get('/api/health', (req, res) => {
