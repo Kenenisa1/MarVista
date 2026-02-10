@@ -2,7 +2,7 @@ services:
   - type: web
     name: marvista-backend
     env: node
-    region: ohio  # or singapore, oregon, frankfurt
+    region: ohio
     plan: free
     buildCommand: npm install
     startCommand: npm start
@@ -11,5 +11,3 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        generateValue: true
