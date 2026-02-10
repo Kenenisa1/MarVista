@@ -74,7 +74,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-linear-to-r from-indigo-900 via-purple-900 to-indigo-900 text-white pt-12 pb-6 relative">
+    <footer className="bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-900 text-white pt-12 pb-6 relative">
       <div className={styles.container + " relative z-10"}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {/* Brand Column */}
@@ -215,7 +215,7 @@ const Footer = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 p-3 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg shadow-lg transition-all duration-300 cursor-pointer z-50 border border-white/10"
+          className="fixed bottom-6 right-6 p-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg shadow-lg transition-all duration-300 cursor-pointer z-50 border border-white/10"
           aria-label="Back to top"
         >
           <FaArrowUp className="w-4 h-4 text-white" />

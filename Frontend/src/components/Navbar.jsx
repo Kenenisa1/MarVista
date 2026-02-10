@@ -72,8 +72,8 @@ const Navbar = () => {
 
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled 
-      ? 'bg-linear-to-r from-indigo-900/95 via-purple-900/95 to-indigo-900/95 backdrop-blur-xl shadow-2xl border-b border-white/10'
-      : 'bg-linear-to-r from-indigo-900 via-purple-900 to-indigo-900'
+      ? 'bg-gradient-to-r from-indigo-900/95 via-purple-900/95 to-indigo-900/95 backdrop-blur-xl shadow-2xl border-b border-white/10'
+      : 'bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-900'
     }`}>
       <nav className="container mx-auto px-4 py-3 md:py-4">
         <div className="flex items-center justify-between">

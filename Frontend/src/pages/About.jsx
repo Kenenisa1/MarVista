@@ -106,11 +106,11 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-50">
       {/* Hero Section with Image */}
-      <div className="relative overflow-hidden bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600">
+      <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-linear-to-r from-indigo-900/40 via-purple-900/30 to-pink-900/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/40 via-purple-900/30 to-pink-900/40"></div>
         </div>
         
         <div className="container mx-auto px-4 py-20 relative z-10">
@@ -159,7 +159,7 @@ const About = () => {
                 />
                 
                 {/* Floating Elements */}
-                <div className="absolute -top-6 -left-6 bg-linear-to-r from-indigo-500 to-purple-500 text-white p-6 rounded-2xl shadow-2xl border-2 border-white/30">
+                <div className="absolute -top-6 -left-6 bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-6 rounded-2xl shadow-2xl border-2 border-white/30">
                   <div className="text-center">
                     <MdSupport className="text-3xl mx-auto mb-2" />
                     <div className="text-xl font-bold">Easy to Use</div>
@@ -167,7 +167,7 @@ const About = () => {
                   </div>
                 </div>
                 
-                <div className="absolute -bottom-6 -right-6 bg-linear-to-r from-yellow-500 to-orange-500 text-white p-6 rounded-2xl shadow-2xl border-2 border-white/30">
+                <div className="absolute -bottom-6 -right-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-6 rounded-2xl shadow-2xl border-2 border-white/30">
                   <div className="text-center">
                     <FaAward className="text-3xl mx-auto mb-2" />
                     <div className="text-xl font-bold">Award Winning</div>
@@ -177,7 +177,7 @@ const About = () => {
               </div>
               
               {/* Background Glow */}
-              <div className="absolute -inset-10 bg-linear-to-r from-indigo-400/20 to-purple-400/20 blur-3xl rounded-full"></div>
+              <div className="absolute -inset-10 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 blur-3xl rounded-full"></div>
             </div>
           </div>
         </div>
@@ -195,7 +195,7 @@ const About = () => {
         {/* Mission Section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Our <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Mission</span>
+            Our <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Mission</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             To revolutionize how people shop in traditional markets by providing a seamless digital preview experience 
@@ -210,7 +210,7 @@ const About = () => {
               key={index} 
               className="bg-white rounded-2xl shadow-xl p-8 border border-indigo-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className={`bg-linear-to-br ${feature.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto`}>
+              <div className={`bg-gradient-to-br ${feature.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto`}>
                 {feature.icon}
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
@@ -224,7 +224,7 @@ const About = () => {
         </div>
 
         {/* How It Works */}
-        <div id="how-it-works" className="bg-linear-to-r from-indigo-500 to-purple-600 text-white rounded-2xl shadow-2xl p-8 md:p-12 mb-20">
+        <div id="how-it-works" className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl shadow-2xl p-8 md:p-12 mb-20">
           <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
             How It Works
           </h2>
@@ -250,7 +250,7 @@ const About = () => {
               key={index} 
               className="bg-white rounded-2xl shadow-xl p-8 text-center border border-indigo-100 hover:shadow-2xl transition-all duration-300"
             >
-              <div className="w-16 h-16 bg-linear-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center mb-4 mx-auto">
                 {stat.icon}
               </div>
               <div className="text-4xl font-bold text-indigo-600 mb-2">{stat.value}</div>
@@ -262,7 +262,7 @@ const About = () => {
         {/* Why Choose Us */}
         <div className="mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center">
-            Why Choose <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Market Preview?</span>
+            Why Choose <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Market Preview?</span>
           </h2>
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-indigo-100">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -286,7 +286,7 @@ const About = () => {
         {/* Team Section */}
         <div className="mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center">
-            Meet Our <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Team</span>
+            Meet Our <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Team</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member, index) => (
@@ -300,7 +300,7 @@ const About = () => {
                     alt={member.name}
                     className="w-40 h-40 rounded-full mx-auto mb-6 object-cover border-4 border-white shadow-lg"
                   />
-                  <div className="absolute bottom-0 right-1/4 bg-linear-to-r from-indigo-500 to-purple-500 text-white p-2 rounded-full">
+                  <div className="absolute bottom-0 right-1/4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-2 rounded-full">
                     <FaAward className="text-lg" />
                   </div>
                 </div>

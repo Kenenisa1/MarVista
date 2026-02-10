@@ -95,11 +95,11 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center p-4">
       {/* Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-linear-to-r from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-linear-to-r from-pink-400/20 to-rose-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-400/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-6xl w-full relative z-10">
@@ -107,14 +107,14 @@ const SignIn = () => {
           {/* Left Column - Illustration & Info */}
           <div className="text-center lg:text-left">
             <div className="mb-8">
-              <div className="inline-flex items-center gap-3 bg-linear-to-r from-indigo-100 to-purple-100 px-6 py-3 rounded-full mb-6">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-100 to-purple-100 px-6 py-3 rounded-full mb-6">
                 <MdOutlineSecurity className="text-2xl text-indigo-600" />
                 <span className="font-bold text-indigo-700">SECURE LOGIN</span>
               </div>
 
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
                 Welcome Back to{" "}
-                <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   Market Preview
                 </span>
               </h1>
@@ -145,7 +145,7 @@ const SignIn = () => {
                   key={index}
                   className="flex items-center gap-4 p-4 bg-white/50 backdrop-blur-sm rounded-xl border border-indigo-100"
                 >
-                  <div className="w-12 h-12 bg-linear-to-br from-indigo-100 to-purple-100 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-xl flex items-center justify-center">
                     <div className="text-indigo-600">{feature.icon}</div>
                   </div>
                   <span className="text-gray-700 font-medium">
@@ -156,7 +156,7 @@ const SignIn = () => {
             </div>
 
             {/* Testimonial */}
-            <div className="bg-linear-to-r from-indigo-500 to-purple-600 text-white rounded-2xl p-6 shadow-xl">
+            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl p-6 shadow-xl">
               <p className="text-lg italic mb-4">
                 "MarVista transformed how I shop. I save hours every week!"
               </p>
@@ -173,7 +173,7 @@ const SignIn = () => {
           {/* Right Column - Sign In Form */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-10 border border-indigo-100">
             <div className="text-center mb-8">
-              <div className="w-20 h-20 bg-linear-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <FaSignInAlt className="text-3xl text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2">Sign In</h2>
@@ -268,7 +268,7 @@ const SignIn = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>

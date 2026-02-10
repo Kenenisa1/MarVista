@@ -40,7 +40,7 @@ const Contact = () => {
       icon: <FaEnvelope className="text-white text-xl" />,
       title: "Email Us",
       details: ["Kenenisamiesb@gmail.com", "kenenisamb@gmail.com"],
-      bgColor: "bg-linear-to-br from-indigo-500 to-purple-600",
+      bgColor: "bg-gradient-to-br from-indigo-500 to-purple-600",
       action: "mailto:Kenenisamiesb@gmail.com"
     },
     {
@@ -48,14 +48,14 @@ const Contact = () => {
       title: "Call Us",
       id: "phone",
       details: ["+251 964 762 288", "+251 702 929 800"],
-      bgColor: "bg-linear-to-br from-purple-500 to-pink-600",
+      bgColor: "bg-gradient-to-br from-purple-500 to-pink-600",
       action: "tel:+251964762288"
     },
     {
       icon: <FaMapMarkerAlt className="text-white text-xl" />,
       title: "Visit Us",
       details: ["Shashemene, Ethiopia", "Bishan Guracha"],
-      bgColor: "bg-linear-to-br from-pink-500 to-rose-600",
+      bgColor: "bg-gradient-to-br from-pink-500 to-rose-600",
       action: "#location"
     }
   ];
@@ -124,11 +124,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-50">
       {/* Hero Section with Image */}
-      <div className="relative overflow-hidden bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600">
+      <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-linear-to-r from-indigo-900/40 via-purple-900/30 to-pink-900/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/40 via-purple-900/30 to-pink-900/40"></div>
         </div>
         
         <div className="container mx-auto px-4 py-20 relative z-10">
@@ -177,7 +177,7 @@ const Contact = () => {
                 />
                 
                 {/* Floating Elements */}
-                <div className="absolute -top-6 -left-6 bg-linear-to-r from-indigo-500 to-purple-500 text-white p-6 rounded-2xl shadow-2xl border-2 border-white/30">
+                <div className="absolute -top-6 -left-6 bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-6 rounded-2xl shadow-2xl border-2 border-white/30">
                   <div className="text-center">
                     <MdSupportAgent className="text-3xl mx-auto mb-2" />
                     <div className="text-xl font-bold">24/7 Support</div>
@@ -185,7 +185,7 @@ const Contact = () => {
                   </div>
                 </div>
                 
-                <div className="absolute -bottom-6 -right-6 bg-linear-to-r from-yellow-500 to-orange-500 text-white p-6 rounded-2xl shadow-2xl border-2 border-white/30">
+                <div className="absolute -bottom-6 -right-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-6 rounded-2xl shadow-2xl border-2 border-white/30">
                   <div className="text-center">
                     <HiLightBulb className="text-3xl mx-auto mb-2" />
                     <div className="text-xl font-bold">Quick Response</div>
@@ -195,7 +195,7 @@ const Contact = () => {
               </div>
               
               {/* Background Glow */}
-              <div className="absolute -inset-10 bg-linear-to-r from-indigo-400/20 to-purple-400/20 blur-3xl rounded-full"></div>
+              <div className="absolute -inset-10 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 blur-3xl rounded-full"></div>
             </div>
           </div>
         </div>
@@ -212,7 +212,7 @@ const Contact = () => {
       <div className="container mx-auto px-4 py-16 -mt-10 relative z-20">
         {submitted && (
           <div className="mb-10 animate-fadeIn">
-            <div className="bg-linear-to-r from-green-500 to-emerald-600 text-white rounded-2xl p-8 shadow-2xl max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl p-8 shadow-2xl max-w-4xl mx-auto">
               <div className="flex items-center justify-center gap-6">
                 <FaCheckCircle className="text-4xl" />
                 <div className="text-center">
@@ -279,7 +279,7 @@ const Contact = () => {
             </div>
 
             {/* Business Hours */}
-            <div className="bg-linear-to-br from-indigo-500 to-purple-600 text-white rounded-2xl shadow-xl p-8">
+            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-2xl shadow-xl p-8">
               <h3 className="text-2xl font-bold mb-6">Business Hours</h3>
               <div className="space-y-4">
                 {[
@@ -301,7 +301,7 @@ const Contact = () => {
             {/* Contact Form */}
             <div id="contact-form" className="bg-white rounded-2xl shadow-xl p-8 border border-indigo-100">
               <div className="flex items-center gap-4 mb-8">
-                <div className="p-4 bg-linear-to-r from-indigo-500 to-purple-600 rounded-2xl">
+                <div className="p-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl">
                   <FaPaperPlane className="text-white text-3xl" />
                 </div>
                 <div>
@@ -379,7 +379,7 @@ const Contact = () => {
                 <div className="pt-6">
                   <button
                     type="submit"
-                    className="w-full cursor-pointer bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-5 px-8 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl hover:-translate-y-1 disabled:opacity-70"
+                    className="w-full cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-5 px-8 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl hover:-translate-y-1 disabled:opacity-70"
                     disabled={loading}
                   >
                     {loading ? (
@@ -421,7 +421,7 @@ const Contact = () => {
 
         {/* Quick Contact Banner */}
         <div className="mt-16">
-          <div className="bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-2xl shadow-2xl p-12">
+          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl shadow-2xl p-12">
             <div className="text-center max-w-4xl mx-auto">
               <h3 className="text-3xl font-bold mb-6">Need Immediate Assistance?</h3>
               <p className="text-indigo-100 text-xl mb-10 max-w-3xl mx-auto">

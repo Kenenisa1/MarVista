@@ -1,20 +1,19 @@
-import  { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import {FaSignInAlt,FaHome,FaInfoCircle,FaPaperPlane,FaCog,FaUserCircle,FaEye, FaUserPlus, FaSignOutAlt, FaPlus } from 'react-icons/fa'
-import { useUserStore } from '../Store/user'
+import  { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {FaSignInAlt,FaHome,FaInfoCircle,FaPaperPlane,FaCog,FaUserCircle,FaEye, FaUserPlus, FaSignOutAlt, FaPlus } from 'react-icons/fa';
+import { useUserStore } from '../Store/user';
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { MdDashboard } from "react-icons/md";
 
 
 const MobileMenu = () => {
-
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [ setIsProfileOpen] = useState(false);
     const { user, signout } = useUserStore();
     const navigate = useNavigate();
 
-      const handleSignOut = () => {
+    const handleSignOut = () => {
     signout();
     setIsProfileOpen(false);
     setIsMobileMenuOpen(false);
@@ -39,7 +38,7 @@ const MobileMenu = () => {
   return (
     <div>
           {isMobileMenuOpen && (
-        <div className="md:hidden bg-linear-to-br from-indigo-900/95 via-purple-900/95 to-indigo-900/95 backdrop-blur-xl border-t border-white/10 shadow-2xl animate-slideDown">
+        <div className="md:hidden bg-gradient-to-br from-indigo-900/95 via-purple-900/95 to-indigo-900/95 backdrop-blur-xl border-t border-white/10 shadow-2xl animate-slideDown">
           <div className="px-4 py-4 space-y-1">
             {user && (
               <div className="px-4 py-3 bg-linear-to-r from-indigo-800/50 to-purple-800/50 rounded-xl mb-3 border border-white/10">

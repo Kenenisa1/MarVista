@@ -7,7 +7,9 @@ import { useUserStore } from "../Store/user";
 import toast from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
-  const BACKEND_URL = "http://localhost:5000";
+  // FIX: Use environment variable for production
+  const BACKEND_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+  
   const { user } = useUserStore();
   const { deleteProduct, updateProduct } = useProductStore();
   
@@ -19,6 +21,33 @@ const ProductCard = ({ product }) => {
     price: "",
     image: "",
   });
+
+  // FIX: Better image URL handling
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) {
+      return "https://via.placeholder.com/400x300/cccccc/969696?text=No+Image";
+    }
+    
+    // If it's already a full URL
+    if (imagePath.startsWith('http')) {
+      return imagePath;
+    }
+    
+    // If it starts with uploads/ but no slash
+    if (imagePath.startsWith('uploads/')) {
+      return `${BACKEND_URL}/${imagePath}`;
+    }
+    
+    // If it starts with /uploads
+    if (imagePath.startsWith('/uploads')) {
+      return `${BACKEND_URL}${imagePath}`;
+    }
+    
+    // Default: assume it's just a filename
+    return `${BACKEND_URL}/uploads/${imagePath}`;
+  };
+
+  const imageUrl = getImageUrl(product.image);
 
   const formatPriceETB = (price) => {
     const numPrice = parseFloat(price);
@@ -108,16 +137,12 @@ const ProductCard = ({ product }) => {
     }
   };
 
-  // Remove console.log in production
-  console.log('Product Image URL:', product.image);
-  console.log('Product Data:', product);
-
   return (
     <>
       {isEditing && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 scale-100">
-            <div className="p-2">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+            <div className="p-6">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold text-gray-900">
                   Edit Product
@@ -131,7 +156,7 @@ const ProductCard = ({ product }) => {
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4 mt-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Product Name
@@ -170,24 +195,25 @@ const ProductCard = ({ product }) => {
                     />
                   </div>
                 </div>
-{/* 
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Image URL
                   </label>
                   <input
-                    type="url"
+                    type="text"
                     name="image"
                     value={formData.image}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all duration-200"
+                    placeholder="Enter image URL or path"
                     disabled={isLoading}
                     required
                   />
                   {formData.image && (
                     <div className="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <img
-                        src={formData.image}
+                        src={getImageUrl(formData.image)}
                         alt="Preview"
                         className="h-24 w-full object-contain rounded-lg"
                         onError={(e) => {
@@ -197,7 +223,7 @@ const ProductCard = ({ product }) => {
                       />
                     </div>
                   )}
-                </div> */}
+                </div>
 
                 <div className="flex justify-end gap-3 pt-6 border-t border-gray-200">
                   <button
@@ -210,11 +236,11 @@ const ProductCard = ({ product }) => {
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2.5 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center"
+                    className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center"
                   >
                     {isLoading ? (
                       <>
-                        <div className="animate-spin rounded-full h-4 w-2 border-b-2 border-white "></div>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                         Updating...
                       </>
                     ) : (
@@ -229,8 +255,8 @@ const ProductCard = ({ product }) => {
       )}
 
       {isDeleting && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 scale-100">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
             <div className="p-6">
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-3 bg-red-50 rounded-xl">
@@ -255,11 +281,11 @@ const ProductCard = ({ product }) => {
                   ? This product will be permanently removed.
                 </p>
                 
-                <div className="p-4 bg-linear-to-r from-gray-50 to-white rounded-xl border border-gray-200">
+                <div className="p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200">
                   <div className="flex items-center gap-4">
                     <div className="w-20 h-20 bg-white rounded-lg border border-gray-300 overflow-hidden shrink-0">
                       <img
-                        src={product.image.startsWith('http') ? product.image : `${BACKEND_URL}${product.image}`}
+                        src={imageUrl}
                         alt={product.name}
                         className="w-full h-full object-cover"
                         onError={(e) => {
@@ -285,7 +311,7 @@ const ProductCard = ({ product }) => {
                 </button>
                 <button
                   onClick={handleConfirmDelete}
-                  className="px-5 py-2.5 bg-linear-to-r from-red-600 to-pink-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-200 flex items-center"
+                  className="px-5 py-2.5 bg-gradient-to-r from-red-600 to-pink-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-200 flex items-center"
                 >
                   <MdDelete className="w-4 h-4 mr-2" />
                   Delete Product
@@ -299,9 +325,9 @@ const ProductCard = ({ product }) => {
       <Link to={`/product/${product._id}`} className="block group">
         <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 overflow-hidden h-full">
           
-          <div className="relative h-64 bg-linear-to-br from-gray-50 to-gray-100 overflow-hidden">
+          <div className="relative h-64 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
             <img
-              src={product.image.startsWith('http') ? product.image : `${BACKEND_URL}${product.image}`}
+              src={imageUrl}
               alt={product.name}
               className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-500"
               onError={(e) => {
@@ -311,7 +337,7 @@ const ProductCard = ({ product }) => {
             />
             
             <div className="absolute top-4 left-4">
-              <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-700 text-xs font-medium rounded-full shadow-sm">
+              <span className="px-3 py-1 bg-white bg-opacity-90 text-gray-700 text-xs font-medium rounded-full shadow-sm">
                 {product.category || "General"}
               </span>
             </div>

@@ -5,8 +5,7 @@ import home from '../assets/home.jpg'
 const HeroSection = () => {
   return (
     <div className="relative overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-blue-800 via-indigo-300 to-pink-600 opacity-50"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-800 via-indigo-300 to-pink-600 opacity-50"></div>
       
       <div className="relative">
         <div className="container mx-auto px-4 py-12 md:py-20">
@@ -21,7 +20,7 @@ const HeroSection = () => {
 
               {/* Main Headline */}
               <h1 className="text-6xl md:text-6xl font-bold mb-6">
-                Discover <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 ">High Quality</span> Products
+                Discover <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">High Quality</span> Products
                 <br />
               </h1>
 
@@ -35,7 +34,7 @@ const HeroSection = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   to="/products" 
-                  className="group flex items-center justify-center gap-2 bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600  font-semibold px-8 py-4 rounded-xl hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 hover:-translate-y-1"
+                  className="group flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold px-8 py-4 rounded-xl hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 hover:-translate-y-1"
                 >
                   <FaShoppingBag className="text-lg" />
                   <span>Visit Now</span>
@@ -62,14 +61,14 @@ const HeroSection = () => {
                 />
                 
                 {/* Floating Elements */}
-                <div className="absolute -top-6 -left-6 bg-linear-to-r from-blue-500 to-cyan-400 text-white p-4 rounded-xl shadow-2xl">
+                <div className="absolute -top-6 -left-6 bg-gradient-to-r from-blue-500 to-cyan-400 text-white p-4 rounded-xl shadow-2xl">
                   <div className="text-center">
                     <div className="text-2xl font-bold">30% discount</div>
                     <div className="text-sm">first preview</div>
                   </div>
                 </div>
                 
-                <div className="absolute -bottom-6 -right-6 bg-linear-to-r from-purple-500 to-pink-500 text-white p-4 rounded-xl shadow-2xl">
+                <div className="absolute -bottom-6 -right-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-xl shadow-2xl">
                   <div className="text-center">
                     <div className="text-2xl font-bold">⭐ 4.9</div>
                     <div className="text-sm">Customer Rating</div>
@@ -78,7 +77,7 @@ const HeroSection = () => {
               </div>
 
               {/* Background Blur */}
-              <div className="absolute -inset-10 bg-linear-to-r from-blue-500/20 to-purple-500/20 blur-3xl rounded-full"></div>
+              <div className="absolute -inset-10 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl rounded-full"></div>
             </div>
 
           </div>

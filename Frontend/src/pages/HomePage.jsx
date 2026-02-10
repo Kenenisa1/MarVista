@@ -45,19 +45,19 @@ const HomePage = () => {
       icon: <FaTruck className="text-2xl" />,
       title: "Fast Updates",
       description: "Stay updated with new market arrivals",
-      linear: "from-blue-500 to-cyan-500"
+      gradient: "from-blue-500 to-cyan-500"
     },
     {
       icon: <FaCreditCard className="text-2xl" />,
       title: "Save Time",
       description: "Shop efficiently from anywhere",
-      linear: "from-green-500 to-emerald-500"
+      gradient: "from-green-500 to-emerald-500"
     },
     {
       icon: <FaSyncAlt className="text-2xl" />,
       title: "Save Energy",
       description: "Avoid crowded market visits",
-      linear: "from-purple-500 to-pink-500"
+      gradient: "from-purple-500 to-pink-500"
     }
   ];
 
@@ -65,7 +65,7 @@ const HomePage = () => {
     <>
       <HeroSection />
       
-      <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-indigo-50">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-50">
         <div className="container mx-auto px-4 py-16">
           
           {/* Featured Products Section */}
@@ -73,12 +73,12 @@ const HomePage = () => {
             {/* Header with Controls */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
               <div className="text-center md:text-left">
-                <div className="inline-flex items-center gap-3 bg-linear-to-r from-indigo-100 to-purple-100 px-6 py-3 rounded-full mb-4">
+                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-100 to-purple-100 px-6 py-3 rounded-full mb-4">
                   <FaFire className="text-orange-500 text-xl" />
                   <span className="font-bold text-indigo-700">FEATURED COLLECTION</span>
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-                  Premium Products <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Curated for You</span>
+                  Premium Products <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Curated for You</span>
                 </h2>
                 <p className="text-gray-600 text-lg max-w-2xl">
                   Handpicked selection of our most popular and high-quality products
@@ -122,7 +122,7 @@ const HomePage = () => {
                       <div key={product._id} className="group transform hover:-translate-y-2 transition-all duration-300">
                         <div className="relative">
                           <div className="absolute top-4 left-4 z-10">
-                            <span className="px-3 py-1 bg-linear-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-full shadow-lg">
+                            <span className="px-3 py-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-full shadow-lg">
                               Featured
                             </span>
                           </div>
@@ -164,7 +164,7 @@ const HomePage = () => {
 
                 {/* Results Summary */}
                 <div className="mt-12 pt-8 border-t border-gray-200">
-                  <div className="bg-linear-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
+                  <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                       <div className="text-center md:text-left">
                         <h4 className="text-lg font-bold text-gray-900 mb-2">Product Collection Summary</h4>
@@ -179,7 +179,7 @@ const HomePage = () => {
                         </div>
                         <Link 
                           to="/products"
-                          className="inline-flex items-center gap-2 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+                          className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
                         >
                           <span>Browse Full Catalog</span>
                           <FaArrowRight />
@@ -192,7 +192,7 @@ const HomePage = () => {
             ) : (
               /* Empty State */
               <div className="bg-white rounded-2xl shadow-xl border border-indigo-100 p-12 text-center">
-                <div className="w-24 h-24 bg-linear-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-8">
+                <div className="w-24 h-24 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-8">
                   <FaStar className="text-4xl text-indigo-400" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -205,7 +205,7 @@ const HomePage = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link 
                     to="/products"
-                    className="inline-flex items-center justify-center gap-3 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+                    className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
                   >
                     <span>Browse All Products</span>
                     <FaArrowRight />
@@ -224,7 +224,7 @@ const HomePage = () => {
 
           {/* Benefits Banner */}
           <div className="mt-16">
-            <div className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 text-white rounded-2xl shadow-2xl p-8 md:p-12">
+            <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white rounded-2xl shadow-2xl p-8 md:p-12">
               <div className="flex flex-col md:flex-row items-center justify-between gap-8">
                 <div className="max-w-2xl">
                   <h3 className="text-2xl md:text-3xl font-bold mb-6">
@@ -274,7 +274,7 @@ const HomePage = () => {
           <div className="mt-16">
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                Smart Shopping <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Benefits</span>
+                Smart Shopping <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Benefits</span>
               </h3>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 Experience the future of market shopping with our innovative features
@@ -287,7 +287,7 @@ const HomePage = () => {
                   key={index}
                   className="bg-white rounded-2xl shadow-xl p-8 border border-indigo-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
                 >
-                  <div className={`bg-linear-to-br ${feature.linear} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto`}>
+                  <div className={`bg-gradient-to-br ${feature.gradient} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto`}>
                     <div className="text-white">
                       {feature.icon}
                     </div>
