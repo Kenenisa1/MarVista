@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'development') {
 // CORS
 app.use(cors({
   origin: [
-    'https://marvista-frontend-app.vercel.app',
+    'https://marvista-app.vercel.app', // Make sure this matches your Vercel frontend URL exactly
     'http://localhost:5173'
   ],
   credentials: true,
