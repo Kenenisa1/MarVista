@@ -19,7 +19,6 @@ export default defineConfig({
     outDir: 'dist',
     // ADD these for better production builds
     sourcemap: false,
-    minify: 'terser',
     rollupOptions: {
       output: {
         manualChunks: {
