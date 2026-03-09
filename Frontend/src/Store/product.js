@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://mar-vista.vercel.app/api';
 
 export const useProductStore = create((set, get) => ({
     products: [],
@@ -19,7 +20,7 @@ export const useProductStore = create((set, get) => ({
         set({ isLoading: true, error: null });
         
         try {
-            const res = await fetch('/api/products', {
+            const res = await fetch(`${API_BASE}/products`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             
@@ -51,7 +52,7 @@ export const useProductStore = create((set, get) => ({
         set({ isLoading: true, error: null });
         
         try {
-            const response = await fetch('/api/products/featured');
+            const response = await fetch(`${API_BASE}/products`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             
             const data = await response.json();
@@ -93,7 +94,7 @@ export const useProductStore = create((set, get) => ({
         set({ isLoading: true, error: null });
         
         try {
-            const res = await fetch('/api/products', {
+            const res = await fetch(`${API_BASE}/products`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData
@@ -136,7 +137,7 @@ export const useProductStore = create((set, get) => ({
         set({ isLoading: true, error: null });
         
         try {
-            const res = await fetch(`/api/products/${productId}`, {
+            const res = await fetch(`${API_BASE}/products/${productId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -184,7 +185,7 @@ export const useProductStore = create((set, get) => ({
                 body = JSON.stringify(updatedData);
             }
             
-            const res = await fetch(`/api/products/${productId}`, {
+            const res = await fetch(`${API_BASE}/products/${productId}`, {
                 method: 'PUT',
                 headers,
                 body
@@ -251,7 +252,7 @@ export const useProductStore = create((set, get) => ({
         set({ isLoading: true, error: null });
         
         try {
-            const res = await fetch(`/api/products/${productId}`);
+            const res = await fetch(`${API_BASE}/products/${productId}`);
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             
             const data = await res.json();
