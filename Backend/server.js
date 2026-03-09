@@ -39,8 +39,7 @@ if (process.env.NODE_ENV === 'development') {
 // Added more common Vercel naming patterns to be safe
 app.use(cors({
   origin: [
-    'https://marvista-app.vercel.app',
-    'https://marvista-frontend-app.vercel.app', 
+    'https://marvista.vercel.app/', 
     'http://localhost:5173'
   ],
   credentials: true,
@@ -57,7 +56,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.get('/', (req, res) => {
   res.json({
     success: true,
-    message: 'MarVista API is running',
+    message: 'Marvista API is running',
     environment: process.env.NODE_ENV
   });
 });
