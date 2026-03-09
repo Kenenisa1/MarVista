@@ -12,7 +12,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 // Component loader with error handling
 const loadComponent = (componentName) => {
   return lazy(() => 
-    import(`./pages/${componentName}`)
+    import(`./pages/${componentName}.jsx`)
       .then(module => ({ default: module[componentName] || module.default }))
       .catch(() => import('./pages/NotFound'))
   );
