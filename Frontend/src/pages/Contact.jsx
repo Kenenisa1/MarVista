@@ -100,7 +100,7 @@ const Contact = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('http://localhost:5000/api/contact/send', {
+      const response = await fetch('https://mar-vista.vercel.app/api/contact/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

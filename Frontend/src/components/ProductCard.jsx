@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
   // FIX: Use environment variable for production
-  const BACKEND_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+  const BACKEND_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'https://mar-vista.vercel.app/';
   
   const { user } = useUserStore();
   const { deleteProduct, updateProduct } = useProductStore();

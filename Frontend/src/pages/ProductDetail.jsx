@@ -19,7 +19,7 @@ const ProductDetail = () => {
   const [saved, setSaved] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
 
-  const BACKEND_URL = "http://localhost:5000"; 
+  const BACKEND_URL = "https://mar-vista.vercel.app/"; 
 
   // Format price in ETB
   const formatPriceETB = (price) => {
