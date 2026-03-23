@@ -1,56 +1,43 @@
-import { lazy, Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { routes } from './routeConfig';
+
+// 1. Static Imports (This fixes the 404/MIME errors)
+import HomePage from './pages/HomePage.jsx';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
+import ProductDetail from './pages/ProductDetail.jsx';
+import CreatePage from './pages/CreatePage.jsx';
+import UpdateProductPage from './pages/UpdateProductPage.jsx';
+import SignIn from './pages/SignIn.jsx';
+import SignUp from './pages/SignUp.jsx';
+import Products from './pages/Products.jsx';
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
+
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import LoadingSpinner from './components/LoadingSpinner';
 import ErrorBoundary from './components/ErrorBoundary';
 
-// Component loader with error handling
-const loadComponent = (componentName) => {
-  return lazy(() => 
-    import(`./pages/${componentName}.jsx`)
-      .then(module => ({ default: module[componentName] || module.default }))
-      .catch(() => import('./pages/NotFound'))
-  );
+// 2. Simple Component Map
+const componentMap = {
+  HomePage, About, Contact, ProductDetail, CreatePage, 
+  UpdateProductPage, SignIn, SignUp, Products, PrivacyPolicy
 };
 
-// Pre-load all components to prevent reloads
-const componentCache = {};
-routes.forEach(route => {
-  componentCache[route.element] = loadComponent(route.element);
-});
-
 const App = () => {
-  // Memoize routes to prevent unnecessary re-renders
   const routeElements = useMemo(() => {
     return routes.map((route) => {
-      const LazyComponent = componentCache[route.element];
+      const Component = componentMap[route.element];
       
-      let element = (
-        <Suspense fallback={<LoadingSpinner />}>
-          <LazyComponent />
-        </Suspense>
-      );
+      let element = <Component />;
       
-      // Route protection logic
       if (route.admin) {
-        element = (
-          <ProtectedRoute>
-            <AdminRoute>
-              {element}
-            </AdminRoute>
-          </ProtectedRoute>
-        );
+        element = <ProtectedRoute><AdminRoute>{element}</AdminRoute></ProtectedRoute>;
       } else if (route.protected) {
-        element = (
-          <ProtectedRoute>
-            {element}
-          </ProtectedRoute>
-        );
+        element = <ProtectedRoute>{element}</ProtectedRoute>;
       }
       
       const withLayout = route.layout !== false;
@@ -62,16 +49,10 @@ const App = () => {
           element={
             withLayout ? (
               <>
-                <Navbar />
-                <main className="grow">
-                  {element}
-                </main>
-                <Footer />
+                <Navbar /><main className="grow">{element}</main><Footer />
               </>
             ) : (
-              <div className="min-h-screen">
-                {element}
-              </div>
+              <div className="min-h-screen">{element}</div>
             )
           }
         />
@@ -81,14 +62,7 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <Toaster 
-        position="top-center" 
-        reverseOrder={false}
-        toastOptions={{
-          duration: 4000,
-          // style: { background: '#363636', color: '#fff' },
-        }}
-      />
+      <Toaster position="top-center" />
       <Routes>
         {routeElements}
         <Route path="*" element={<Navigate to="/" replace />} />
